@@ -1,0 +1,26 @@
+nodes:
+  - name: check_ods
+    type: command
+    config:
+     command: /root/bin/check/check_ods.sh ${dt}
+
+  - name: check_dwd
+    type: command
+    dependsOn:
+         - check_ods
+    config:
+     command: /root/bin/check/check_dwd.sh ${dt}
+
+  - name: check_dim
+    type: command
+    dependsOn:
+         - check_dwd
+    config:
+     command: /root/bin/check/check_dim.sh ${dt}
+    
+  - name: check_notification
+    type: command
+    dependsOn:
+         - check_dim
+    config:
+     command: /root/bin/check/check_notification.sh
